@@ -43,7 +43,7 @@ jobs:
       - uses: actions-ecosystem/action-remove-labels@v1.1.0
         with:
           github_token: '${{ secrets.GH_TOKEN }}'
-          remove-labels: |
+          labels: |
             needs-triage
             prio: low
             prio: medium
