@@ -4,27 +4,32 @@ on:
     types: [created]
 
 jobs:
-    prioritize:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: khan/pull-request-comment-trigger@master
-              id: high
-              with:
-                trigger: '/p=high'
-            - uses: khan/pull-request-comment-trigger@master
-              id: medium
-              with:
-                trigger: '/p=medium'
-            - uses: khan/pull-request-comment-trigger@master
-              id: low
-              with:
-                trigger: '/p=low'
-
-            - run: echo 'is high prio!'
-              if: steps.high.outputs.triggered == 'true'
-            - run: echo 'is medium prio!'
-              if: steps.medium.outputs.triggered == 'true'
-            - run: echo 'is low prio!'
-              if: steps.low.outputs.triggered == 'true'
+  prio:
+    strategy:
+      matrix:
+        prioritisation: [high, medium, low]
+        include:
+          - prioritisation: high
+            column: High prio
+          - prioritisation: medium
+            column: Medium prio
+          - prioritisation: low
+            column: Low prio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: khan/pull-request-comment-trigger@master
+        id: check
+        with:
+          trigger: '/p=${{ matrix.prioritisation }}'
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - uses: alex-page/github-project-automation-plus@v0.3.0
+        id: prioritisation
+        with:
+          project: Basic board
+          column: '${{ matrix.column }}'
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+        if: steps.check.outputs.triggered == 'true'
 
 # vim: set ff=unix autoindent ts=2 sw=2 tw=0 et :
