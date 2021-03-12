@@ -15,10 +15,13 @@ jobs:
           reaction: true
           reaction-type: eyes
           permission-level: read
+      - run: 'env OUT="${{ steps.check.outputs.command-arguments }}" echo "::set-output name=prio::${OUT^}"'
+        id: name
+        if: 'steps.check.outputs.command-arguments != 0'
       - uses: alex-page/github-project-automation-plus@main
         with:
           project: Basic board
-          column: '${{ steps.check.outputs.command-arguments.charAt(0).toUpperCase() + steps.check.outputs.command-arguments.toLowerCase().slice(1) }} prio'
+          column: '${{ steps.name.outputs.prio }} prio'
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
         if: 'steps.check.outputs.command-arguments != 0'
 
