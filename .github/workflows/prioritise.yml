@@ -15,41 +15,11 @@ jobs:
           reaction: true
           reaction-type: eyes
           permission-level: read
-      - run: 'echo high found!'
-        if: steps.check.outputs.command-arguments == 'high'
-      - run: 'echo medium found!'
-        if: steps.check.outputs.command-arguments == 'medium'
-      - run: 'echo low found!'
-        if: steps.check.outputs.command-arguments == 'low'
-      - run: 'echo args: ${{ steps.check.outputs.command-arguments }}'
+      - uses: alex-page/github-project-automation-plus@v0.3.0
+        with:
+          project: Basic board
+          column: '${{ steps.check.outputs.command-arguments }} prio'
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
         if: 'steps.check.outputs.command-arguments != 0'
-    #jobs:
-    #  prio:
-    #    strategy:
-    #      matrix:
-    #        prioritisation: [high, medium, low]
-    #        include:
-    #          - prioritisation: high
-    #            column: High prio
-    #          - prioritisation: medium
-    #            column: Medium prio
-    #          - prioritisation: low
-    #            column: Low prio
-    #    runs-on: ubuntu-latest
-    #    steps:
-    #      - uses: khan/pull-request-comment-trigger@master
-    #        id: check
-    #        with:
-    #          trigger: '${{ matrix.prioritisation }}'
-    #          reaction: rocket
-    #        env:
-    #          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-    #      - uses: alex-page/github-project-automation-plus@v0.3.0
-    #        id: prioritisation
-    #        with:
-    #          project: Basic board
-    #          column: '${{ matrix.column }}'
-    #          repo-token: '${{ secrets.GITHUB_TOKEN }}'
-    #        if: steps.check.outputs.triggered == 'true'
 
 # vim: set ff=unix autoindent ts=2 sw=2 tw=0 et :
