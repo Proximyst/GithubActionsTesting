@@ -18,7 +18,7 @@ jobs:
       - run: 'echo "::set-output name=prio::$(echo "${{ steps.check.outputs.command-arguments }}" | sed ''s/.*/\u&/'')"'
         id: name
         if: 'steps.check.outputs.command-arguments != 0'
-      - uses: alex-page/github-project-automation-plus@main
+      - uses: alex-page/github-project-automation-plus@v0.4.0
         with:
           project: Basic board
           column: '${{ steps.name.outputs.prio }} prio'
