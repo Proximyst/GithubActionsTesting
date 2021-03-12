@@ -15,7 +15,7 @@ jobs:
           reaction: true
           reaction-type: eyes
           permission-level: read
-      - uses: proximyst/github-project-automation-plus@main
+      - uses: alex-page/github-project-automation-plus@main
         with:
           project: Basic board
           column: '${{ steps.check.outputs.command-arguments }} prio'
