@@ -15,7 +15,7 @@ jobs:
           reaction: true
           reaction-type: eyes
           permission-level: read
-      - run: 'env OUT="${{ steps.check.outputs.command-arguments }}" echo "::set-output name=prio::${OUT^}"'
+      - run: 'echo "::set-output name=prio::$(echo "${{ steps.check.outputs.command-arguments }}" | sed ''s/.*/\u&/'')"'
         id: name
         if: 'steps.check.outputs.command-arguments != 0'
       - uses: alex-page/github-project-automation-plus@main
