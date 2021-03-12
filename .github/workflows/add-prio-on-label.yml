@@ -36,13 +36,13 @@ jobs:
       - run: 'echo "${{ steps.check.outputs.prio }}"'
       - uses: alex-page/github-project-automation-plus@v0.4.0
         with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          repo-token: '${{ secrets.GH_TOKEN }}'
           project: Basic board
           column: '${{ steps.check.outputs.prio }}'
         if: 'steps.check.outputs.prio != 0'
       - uses: andymckay/labeler@1.0.2
         with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          repo-token: '${{ secrets.GH_TOKEN }}'
           remove-labels: 'needs-triage, prio: low, prio: medium, prio: high'
         if: 'steps.check.outputs.prio != 0'
 
