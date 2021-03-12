@@ -2,6 +2,8 @@ name: Prio on label
 on:
   issues:
     types: [labeled]
+  pull_request:
+    types: [labeled]
 
 jobs:
   prio:
@@ -11,7 +13,7 @@ jobs:
         id: check
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
-          case-insensitive: true
+          case-sensitive: true
           items: |
             [
               {
@@ -41,5 +43,6 @@ jobs:
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
           remove-labels: 'needs-triage, prio: low, prio: medium, prio: high'
+        if: 'steps.check.outputs.prio != 0'
 
 # vim: set ff=unix autoindent ts=2 sw=2 tw=0 et :
