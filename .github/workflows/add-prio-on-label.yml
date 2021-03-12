@@ -14,24 +14,23 @@ jobs:
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
           case-sensitive: true
-          run-prefix: 'echo '
           items: |
             [
               {
                 "label": "prio: high",
-                "run": "'::set-output name=prio::High prio'"
+                "run": "echo '::set-output name=prio::High prio'"
               },
               {
                 "label": "prio: medium",
-                "run": "'::set-output name=prio::Medium prio'"
+                "run": "echo '::set-output name=prio::Medium prio'"
               },
               {
                 "label": "prio: low",
-                "run": "'::set-output name=prio::Low prio'"
+                "run": "echo '::set-output name=prio::Low prio'"
               },
               {
                 "label": "needs-triage",
-                "run": "'::set-output name=prio::Todo'"
+                "run": "echo '::set-output name=prio::Todo'"
               }
             ]
       - run: 'echo "${{ steps.check.outputs.prio }}"'
