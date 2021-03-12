@@ -9,7 +9,7 @@ jobs:
   prio:
     runs-on: ubuntu-20.04
     steps:
-      - uses: pihart/pr-label-action@v2.2.5
+      - uses: proximyst/pr-label-action@main
         id: check
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
