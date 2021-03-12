@@ -1,0 +1,45 @@
+name: Prio on label
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  prio:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: pihart/pr-label-action@v2.2.5
+        id: check
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          case-insensitive: true
+          items: |
+            [
+              {
+                "label": "prio: high",
+                "run": "echo '::set-output name=prio::High prio'"
+              },
+              {
+                "label": "prio: medium",
+                "run": "echo '::set-output name=prio::Medium prio'"
+              },
+              {
+                "label": "prio: low",
+                "run": "echo '::set-output name=prio::Low prio'"
+              },
+              {
+                "label": "needs-triage",
+                "run": "echo '::set-output name=prio::Todo'"
+              }
+            ]
+      - uses: alex-page/github-project-automation-plus@v0.4.0
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          project: Basic board
+          column: '${{ steps.check.outputs.prio }}'
+        if: 'steps.check.outputs.prio != 0'
+      - uses: andymckay/labeler@1.0.2
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          remove-labels: 'needs-triage, prio: low, prio: medium, prio: high'
+
+# vim: set ff=unix autoindent ts=2 sw=2 tw=0 et :
