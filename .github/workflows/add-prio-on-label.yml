@@ -33,6 +33,7 @@ jobs:
                 "run": "echo '::set-output name=prio::Todo'"
               }
             ]
+      - run: 'echo "${{ steps.check.outputs.prio }}"'
       - uses: alex-page/github-project-automation-plus@v0.4.0
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
