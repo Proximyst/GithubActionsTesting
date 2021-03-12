@@ -40,14 +40,15 @@ jobs:
           project: Basic board
           column: '${{ steps.check.outputs.prio }}'
         if: 'steps.check.outputs.prio != 0'
-      - uses: actions-ecosystem/action-remove-labels@v1.1.0
+      - uses: proximyst/action-remove-labels@master
         with:
           github_token: '${{ secrets.GH_TOKEN }}'
-          labels: |-
+          labels: |
             needs-triage
-            prio: low
-            prio: medium
-            prio: high
+            prio\: low
+            prio\: medium
+            prio\: high
+          fail_on_error: true
         if: 'steps.check.outputs.prio != 0'
 
 # vim: set ff=unix autoindent ts=2 sw=2 tw=0 et :
