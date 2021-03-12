@@ -43,9 +43,9 @@ jobs:
       - uses: actions-ecosystem/action-remove-labels@v1.1.0
         with:
           github_token: '${{ secrets.GH_TOKEN }}'
-          labels: 'needs-triage
-prio: low
-prio: medium
+          labels: 'needs-triage\n
+prio: low\n
+prio: medium\n
 prio: high'
         if: 'steps.check.outputs.prio != 0'
 
