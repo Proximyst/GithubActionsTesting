@@ -43,11 +43,10 @@ jobs:
       - uses: actions-ecosystem/action-remove-labels@v1.1.0
         with:
           github_token: '${{ secrets.GH_TOKEN }}'
-          labels: |
-            needs-triage
-            prio: low
-            prio: medium
-            prio: high
+          labels: 'needs-triage
+prio: low
+prio: medium
+prio: high'
         if: 'steps.check.outputs.prio != 0'
 
 # vim: set ff=unix autoindent ts=2 sw=2 tw=0 et :
